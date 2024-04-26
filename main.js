@@ -17,30 +17,30 @@ function createIFrame() {
 createIFrame()
 
 // Обработчик для сообщений
-window.addEventListener('message', (event) => {
+window.addEventListener('message', ({data}) => {
 	// Сообщение о инициализации виджета
-	if (event.data.type === 'editor_widget_initialized') {
+	if (data.type === 'editor_widget_initialized') {
 		console.log('Widget initialized')
 		widgetInitialized = true
 		sendMessage('editor_widget_data_change', generateData())
 	}
 
 	// Сообщение о изменении высоты виджета
-	if (event.data.type === 'editor_widget_height_changed') {
-		console.log('Widget height changed', event.data.data)
-		iframe.style.height = event.data.data + 'px'
+	if (data.type === 'editor_widget_height_changed') {
+		console.log('Widget height changed', data.data)
+		iframe.style.height = data.data + 'px'
 		showIFrameWrapper()
 	}
 
 	// Сообщение о изменении параметров виджета (фильтры и тд)
-	if (event.data.type === 'editor_widget_params_changed') {
-		console.log('Widget params changed', event.data.data)
+	if (data.type === 'editor_widget_params_changed') {
+		console.log('Widget params changed', data.data)
 		sendNewDataWithLoading(1_500)
 	}
 
 	// Сообщение о том, что виджет получил данные
-	if (event.data.type === 'editor_widget_data_received') {
-		console.log('Widget data received', event.data.data)
+	if (data.type === 'editor_widget_data_received') {
+		console.log('Widget data received', data.data)
 	}
 })
 
