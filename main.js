@@ -1,6 +1,7 @@
 const regenerateDataButton = document.querySelector('.button')
 const iframeWrapper = document.querySelector('.widget')
-const widgetId = 'f46159d8-63a8-4d1a-8951-792177f03503'
+const WIDGET_ID = 'f46159d8-63a8-4d1a-8951-792177f03503'
+const WIDGET_HOST = 'business-qa2.tcsbank.ru'
 let iframe
 let widgetInitialized = false
 let firstDataLoad = true
@@ -9,7 +10,7 @@ let lastDataMessageId = null
 // Функция, которая создает iframe динамически (просто для того, чтобы удобно менять widgetId)
 function createIFrame() {
 	const iframeElement = document.createElement('iframe')
-	iframeElement.setAttribute('src', `https://business-qa2.tcsbank.ru/financial-analytics/widgets/${widgetId}`)
+	iframeElement.setAttribute('src', `https://${WIDGET_HOST}/financial-analytics/widgets/${WIDGET_ID}`)
 	iframeWrapper.appendChild(iframeElement)
 	iframe = document.querySelector('iframe')
 }
@@ -75,7 +76,7 @@ function sendMessage(type, data, delay = 0) {
 
 		iframe.contentWindow.postMessage(
 			{
-				id: widgetId,
+				id: WIDGET_ID,
 				type,
 				messageId,
 				data,
